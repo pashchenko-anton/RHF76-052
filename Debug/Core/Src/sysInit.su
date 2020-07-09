@@ -1,0 +1,3 @@
+core_cm0plus.h:745:22:NVIC_EnableIRQ	16	static
+sysInit.c:8:5:clockInit	8	static
+sysInit.c:44:6:timerInit	8	static

@@ -1,0 +1,2 @@
+core_cm0plus.h:745:22:NVIC_EnableIRQ	16	static
+libSPI.c:11:6:initSPI1	8	static

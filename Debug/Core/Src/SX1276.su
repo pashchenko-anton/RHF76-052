@@ -1,0 +1,11 @@
+core_cm0plus.h:745:22:NVIC_EnableIRQ	16	static
+SX1276.c:45:6:Delay	16	static
+SX1276.c:49:6:SX1276Init	8	static
+SX1276.c:86:9:SX1276_WriteSingle	24	static
+SX1276.c:108:9:SX1276_ReadSingle	24	static
+SX1276.c:129:6:SX1276_WriteBurst	24	static
+SX1276.c:150:6:SX1276_ReadBurst	24	static
+SX1276.c:171:6:SX1276_Init	16	static
+SX1276.c:196:9:SX1276_ReadRXBUF	24	static
+SX1276.c:219:6:SX1276_SendTXBUF	24	static
+SX1276.c:256:6:SX1276_CleanBuffer	8	static
