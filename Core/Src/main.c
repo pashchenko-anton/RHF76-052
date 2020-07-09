@@ -144,6 +144,7 @@ int main(void)
   */
 
 /* USER CODE BEGIN 4 */
+//interrupt from DIO0 SX1276
 void EXTI4_15_IRQHandler(void){
 
 	isDIO_0_Flag = 1;
