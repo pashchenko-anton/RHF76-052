@@ -56,7 +56,12 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
+
+//-----------Set PA1 and PA2 for RF switch to receive--------
+//---0 - Transmitter;
+//---1 - Receiver.
 void setRFSwitch(uint8_t isReceiver);
+
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

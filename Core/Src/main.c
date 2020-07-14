@@ -100,10 +100,7 @@ int main(void)
 	SX1276_SendTXBUF(LTX_BUF, LTX_BUF_SIZE);
 	SX1276_CleanBuffer();
 
-//-----------Set PA1 and PA2 for RF switch to receive--------
-	GPIOA->ODR |= GPIO_ODR_OD1;
-	GPIOA->ODR |= GPIO_ODR_OD2;
-//-----------------------------------------------------------
+	setRFSwitch(1);
 
 	/* USER CODE END 2 */
 
@@ -116,11 +113,7 @@ int main(void)
 		  isReceived = SX1276_ReadRXBUF(LRX_BUF, &LRX_BUF_SIZE);
 		  if(isReceived)
 		  {
-//-----------Reset PA1 and PA2 for RF switch to transmit--------
 			  setRFSwitch(0);
-			  GPIOA->ODR &= ~GPIO_ODR_OD1;
-			  GPIOA->ODR &= ~GPIO_ODR_OD2;
-//--------------------------------------------------------------
 			  SX1276_SendTXBUF(LTX_BUF, LTX_BUF_SIZE);
 			  SX1276_CleanBuffer();
 			  isReceived = 0;
@@ -156,9 +149,7 @@ void EXTI4_15_IRQHandler(void){
 
 }
 
-//-----------Set PA1 and PA2 for RF switch to receive--------
-//---0 - Transmitter;
-//---1 - Receiver.
+
 void setRFSwitch(uint8_t isReceiver){
 
 	if(isReceiver)
