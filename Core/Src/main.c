@@ -99,37 +99,40 @@ int main(void)
 //	Delay(0xFFFFF);
 	SX1276_SendTXBUF(LTX_BUF, LTX_BUF_SIZE);
 	SX1276_CleanBuffer();
-//	GPIOA->ODR &= ~GPIO_ODR_OD1;
-//	GPIOA->ODR &= ~GPIO_ODR_OD2;
-  /* USER CODE END 2 */
+
+//-----------Set PA1 and PA2 for RF switch to receive--------
+	GPIOA->ODR |= GPIO_ODR_OD1;
+	GPIOA->ODR |= GPIO_ODR_OD2;
+//-----------------------------------------------------------
+
+	/* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-//	  if(isDIO_0_Flag)
-//	  {
-//		  isReceived = SX1276_ReadRXBUF(LRX_BUF, &LRX_BUF_SIZE);
-//		  if(isReceived)
-//		  {
-//			  GPIOA->ODR |= GPIO_ODR_OD1;
-//			  GPIOA->ODR |= GPIO_ODR_OD2;
-////			  GPIOA->ODR &= ~GPIO_ODR_OD1;
-////			  GPIOA->ODR &= ~GPIO_ODR_OD2;
-//			  SX1276_SendTXBUF(LTX_BUF, LTX_BUF_SIZE);
-//			  SX1276_CleanBuffer();
-//			  isReceived = 0;
-////			  GPIOA->ODR |= GPIO_ODR_OD1;
-////			  GPIOA->ODR |= GPIO_ODR_OD2;
-//			  GPIOA->ODR &= ~GPIO_ODR_OD1;
-//			  GPIOA->ODR &= ~GPIO_ODR_OD2;
-//		  }
-//		  isDIO_0_Flag = 0;
-//  	  }
+	  if(isDIO_0_Flag)
+	  {
+		  isReceived = SX1276_ReadRXBUF(LRX_BUF, &LRX_BUF_SIZE);
+		  if(isReceived)
+		  {
+//-----------Reset PA1 and PA2 for RF switch to transmit--------
+			  setRFSwitch(0);
+			  GPIOA->ODR &= ~GPIO_ODR_OD1;
+			  GPIOA->ODR &= ~GPIO_ODR_OD2;
+//--------------------------------------------------------------
+			  SX1276_SendTXBUF(LTX_BUF, LTX_BUF_SIZE);
+			  SX1276_CleanBuffer();
+			  isReceived = 0;
+			  setRFSwitch(1);
+		  }
+		  isDIO_0_Flag = 0;
+  	  }
 
-	  Delay(0xFFFFFF);
-	  SX1276_SendTXBUF(LTX_BUF, LTX_BUF_SIZE);
-	  SX1276_CleanBuffer();
+	  //only send
+//	  Delay(0xFFFFFF);
+//	  SX1276_SendTXBUF(LTX_BUF, LTX_BUF_SIZE);
+//	  SX1276_CleanBuffer();
 
     /* USER CODE END WHILE */
 
@@ -144,12 +147,30 @@ int main(void)
   */
 
 /* USER CODE BEGIN 4 */
-//interrupt from DIO0 SX1276
+
+//interrupt from DIO0 SX1276 on PB10
 void EXTI4_15_IRQHandler(void){
 
 	isDIO_0_Flag = 1;
 	EXTI->PR |= EXTI_PR_PR10;
 
+}
+
+//-----------Set PA1 and PA2 for RF switch to receive--------
+//---0 - Transmitter;
+//---1 - Receiver.
+void setRFSwitch(uint8_t isReceiver){
+
+	if(isReceiver)
+	{
+		GPIOA->ODR |= GPIO_ODR_OD1;
+		GPIOA->ODR |= GPIO_ODR_OD2;
+	}
+	else
+	{
+		GPIOA->ODR &= ~GPIO_ODR_OD1;
+		GPIOA->ODR &= ~GPIO_ODR_OD2;
+	}
 }
 /* USER CODE END 4 */
 
