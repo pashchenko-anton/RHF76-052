@@ -19,16 +19,15 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "main.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+extern uint8_t rssi,snr;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -96,11 +95,12 @@ int main(void)
 	SX1276Init();
 	SX1276_Init();
 
-//	Delay(0xFFFFF);
+	setRFSwitch(0);
+	Delay(0xFFFFF);
 	SX1276_SendTXBUF(LTX_BUF, LTX_BUF_SIZE);
 	SX1276_CleanBuffer();
 
-	setRFSwitch(1);
+//	setRFSwitch(1);
 
 	/* USER CODE END 2 */
 
@@ -113,6 +113,7 @@ int main(void)
 		  isReceived = SX1276_ReadRXBUF(LRX_BUF, &LRX_BUF_SIZE);
 		  if(isReceived)
 		  {
+			  int RSSI = -157 + rssi + (snr >> 2);
 			  setRFSwitch(0);
 			  SX1276_SendTXBUF(LTX_BUF, LTX_BUF_SIZE);
 			  SX1276_CleanBuffer();
@@ -123,7 +124,7 @@ int main(void)
   	  }
 
 	  //only send
-//	  Delay(0xFFFFFF);
+//	  Delay(0x3FFFFF);
 //	  SX1276_SendTXBUF(LTX_BUF, LTX_BUF_SIZE);
 //	  SX1276_CleanBuffer();
 
@@ -133,11 +134,6 @@ int main(void)
   }
   /* USER CODE END 3 */
 }
-
-/**
-  * @brief System Clock Configuration
-  * @retval None
-  */
 
 /* USER CODE BEGIN 4 */
 

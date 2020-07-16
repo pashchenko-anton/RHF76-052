@@ -1,0 +1,2 @@
+Set PA_BOOST for 433 MHz
+Set RFO_HF for 868 MHz

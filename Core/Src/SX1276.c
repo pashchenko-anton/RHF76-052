@@ -13,10 +13,10 @@ char RX_BUF[16];
 const unsigned char LoRa_config[]={// 868MHz, SF12, 125kHz, 300bps, MaxPower, OcpOn, 9Byte info
 
 		REG_LR_OPMODE,					0x80, 		//Lora mode, HF, Sleep
-		REG_LR_FRFMSB, 					0xd9,		//Freq = 868MHz0xE4//0x6C /6c
-		REG_LR_FRFMID, 					0x0,		//Freq = 868MHz0xC0//0x80 /40
-		REG_LR_FRFLSB, 					0x0,		//Freq = 868MHz			  /00
-		REG_LR_PACONFIG, 				0b11111111,	//Max power
+		REG_LR_FRFMSB, 					0x6c,		//Freq: 868 MHz = 0xd9; 433 MHz = 0x6c
+		REG_LR_FRFMID, 					0x40,		//Freq: 868 MHz = 0x00; 433 MHz = 0x40
+		REG_LR_FRFLSB, 					0x0,		//Freq: 868 MHz = 0x00;	433 MHz = 0x00
+		REG_LR_PACONFIG, 				RFLR_PACONFIG_PASELECT_PABOOST | RFLR_PACONFIG_PASELECT_MASK, //0b11111111 - Max power, however, use RFO for best result on HF
 		REG_LR_OCP,						0x1F,	//OCP-on, Current 130 mA
 		REG_LR_MODEMCONFIG1,			RFLR_MODEMCONFIG1_BW_125_KHZ  | RFLR_MODEMCONFIG1_CODINGRATE_4_5 | RFLR_MODEMCONFIG1_IMPLICITHEADER_OFF,		//125kHz,4/5 Coding Rate/ Explicit
 		REG_LR_MODEMCONFIG2, 			RFLR_MODEMCONFIG2_SF_7 | RFLR_MODEMCONFIG2_RXPAYLOADCRC_ON, //0xC2,			//

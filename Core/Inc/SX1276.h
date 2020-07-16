@@ -21,20 +21,12 @@
 //NSS
 #define CS_LO()					GPIOA->BRR |= GPIO_BRR_BR_4
 #define CS_HI()					GPIOA->BSRR |= GPIO_BSRR_BS_4
-//#define CS_LO()					SPI1->CR1 &= ~SPI_CR1_SSI;
-//#define CS_HI()					SPI1->CR1 |= SPI_CR1_SSI;
-
-//#define CS_LO()					GPIOB->BRR |= GPIO_BRR_BR_11
-//#define CS_HI()					GPIOB->BSRR |= GPIO_BSRR_BS_11
 
 #define MISO					1<<6
 
 //SX1276 Reset
 #define SX1276_RES()			GPIOB->BSRR |= GPIO_BSRR_BS_11
 #define SX1276_REL()			GPIOB->BRR |= GPIO_BRR_BR_11
-
-//#define SX1276_RES()			GPIOA->BSRR |= GPIO_BSRR_BS_8
-//#define SX1276_REL()			GPIOA->BRR |= GPIO_BRR_BR_8
 
 #define RX_TX_MODE()			(GPIOA->IDR & 1<<2) //Pa2 - 0 - Rx mode/ 1 - Tx mode
 
@@ -139,9 +131,9 @@
 #define RFLR_OPMODE_CAD                             0x07
 
 //---------Frequency------------61.035*fRm
-#define RFLR_FRFMSB_868                         		0xD9 // Default
-#define RFLR_FRFMID_868                         		0x20 // Default
-#define RFLR_FRFLSB_868                         		0x04 // Default
+#define RFLR_FRFMSB_868                         	0xD9 // Default
+#define RFLR_FRFMID_868                         	0x00 // Default
+#define RFLR_FRFLSB_868                         	0x00 // Default
 
 #define RFLR_PACONFIG_PASELECT_MASK                 0x7F
 #define RFLR_PACONFIG_PASELECT_PABOOST              0x80
