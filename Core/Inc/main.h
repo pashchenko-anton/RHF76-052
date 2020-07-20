@@ -35,6 +35,8 @@ extern "C" {
 #include "sysInit.h"
 #include "libSPI.h"
 #include "SX1276.h"
+#include "libUART.h"
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

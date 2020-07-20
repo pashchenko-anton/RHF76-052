@@ -23,6 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "main.h"
+#include "stdio.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -94,13 +95,16 @@ int main(void)
 	initSPI1();
 	SX1276Init();
 	SX1276_Init();
+	initUsart1();
 
 	setRFSwitch(0);
 	Delay(0xFFFFF);
 	SX1276_SendTXBUF(LTX_BUF, LTX_BUF_SIZE);
 	SX1276_CleanBuffer();
 
-//	setRFSwitch(1);
+	setRFSwitch(1);
+
+	char strCheck[256];
 
 	/* USER CODE END 2 */
 
@@ -119,9 +123,15 @@ int main(void)
 			  SX1276_CleanBuffer();
 			  isReceived = 0;
 			  setRFSwitch(1);
+			  sprintf(strCheck,"\nMessage: %s, RSSI: %d", LTX_BUF, RSSI);
+			  sendStringUsart1(strCheck);
 		  }
 		  isDIO_0_Flag = 0;
   	  }
+
+//	  Delay(0x3FFFFF);
+//	  sprintf(strCheck,"\nMessage:, RSSI");
+//	  sendStringUsart1(strCheck);
 
 	  //only send
 //	  Delay(0x3FFFFF);

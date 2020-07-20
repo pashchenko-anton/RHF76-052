@@ -1,13 +1,11 @@
 /*************************************************Library***********************************/
-#include "string.h"
-#include "stdint.h"
 #include "stm32l051xx.h"
 
 /*************************************************Define***********************************/
-#define NSS_SET GPIOA->ODR |= GPIO_ODR_OD4;
-#define NSS_RESET GPIOA->ODR &= ~GPIO_ODR_OD4;
-/*************************************************Variables***********************************/
 
 /**********************************************Use functions***********************************/
-void initSPI1(void);
+void initUsart1(void);
+void sendUsart1(char *chr);
+void sendStringUsart1(char* str);
+char readUsart1();
 

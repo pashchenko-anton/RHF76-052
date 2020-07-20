@@ -1,0 +1,4 @@
+libUART.c:6:6:initUsart1	8	static
+libUART.c:38:6:sendUsart1	16	static
+libUART.c:44:6:sendStringUsart1	24	static
+libUART.c:52:6:readUsart1	8	static
