@@ -110,14 +110,16 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
   while (1)
   {
+#if RECEIVER == 1
 	  if(isDIO_0_Flag)
 	  {
 		  isReceived = SX1276_ReadRXBUF(LRX_BUF, &LRX_BUF_SIZE);
 		  if(isReceived)
 		  {
-			  int RSSI = -157 + rssi + (snr >> 2);
+			  int RSSI = -164 + rssi; //+ (snr >> 2);
 			  setRFSwitch(0);
 			  SX1276_SendTXBUF(LTX_BUF, LTX_BUF_SIZE);
 			  SX1276_CleanBuffer();
@@ -128,16 +130,12 @@ int main(void)
 		  }
 		  isDIO_0_Flag = 0;
   	  }
-
-//	  Delay(0x3FFFFF);
-//	  sprintf(strCheck,"\nMessage:, RSSI");
-//	  sendStringUsart1(strCheck);
-
+#else
 	  //only send
-//	  Delay(0x3FFFFF);
-//	  SX1276_SendTXBUF(LTX_BUF, LTX_BUF_SIZE);
-//	  SX1276_CleanBuffer();
-
+	  Delay(0x3FFFFF);
+	  SX1276_SendTXBUF(LTX_BUF, LTX_BUF_SIZE);
+	  SX1276_CleanBuffer();
+#endif
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

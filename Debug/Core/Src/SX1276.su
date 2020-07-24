@@ -7,5 +7,5 @@ SX1276.c:129:6:SX1276_WriteBurst	24	static
 SX1276.c:150:6:SX1276_ReadBurst	24	static
 SX1276.c:171:6:SX1276_Init	16	static
 SX1276.c:196:9:SX1276_ReadRXBUF	24	static
-SX1276.c:219:6:SX1276_SendTXBUF	24	static
-SX1276.c:256:6:SX1276_CleanBuffer	8	static
+SX1276.c:218:6:SX1276_SendTXBUF	24	static
+SX1276.c:255:6:SX1276_CleanBuffer	8	static

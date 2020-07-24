@@ -260,12 +260,12 @@
 #define RFLR_MODEMCONFIG1_BW_MASK                   0x0F
 #define RFLR_MODEMCONFIG1_BW_7_81_KHZ               0x00
 #define RFLR_MODEMCONFIG1_BW_10_41_KHZ              0x10
-#define RFLR_MODEMCONFIG1_BW_15_62_KHZ              0x20
-#define RFLR_MODEMCONFIG1_BW_20_83_KHZ              0x30
+#define RFLR_MODEMCONFIG1_BW_15_62_KHZ              0x20	//#non stable 27-45 seconds
+#define RFLR_MODEMCONFIG1_BW_20_83_KHZ              0x30	//#every 21 seconds
 #define RFLR_MODEMCONFIG1_BW_31_25_KHZ              0x40
 #define RFLR_MODEMCONFIG1_BW_41_66_KHZ              0x50
 #define RFLR_MODEMCONFIG1_BW_62_50_KHZ              0x60
-#define RFLR_MODEMCONFIG1_BW_125_KHZ                0x70 // Default
+#define RFLR_MODEMCONFIG1_BW_125_KHZ                0x70 // Default #every 2.5 seconds
 #define RFLR_MODEMCONFIG1_BW_250_KHZ                0x80
 #define RFLR_MODEMCONFIG1_BW_500_KHZ                0x90
 

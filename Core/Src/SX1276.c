@@ -3,25 +3,25 @@
 /*************************************************Define***********************************/
 uint8_t i,rx_bytes,counter;
 uint8_t Flag=0;
-uint8_t rssi,fr_rssi,snr,act_RFM=6;
+int8_t rssi,fr_rssi,snr,act_RFM=6;
 uint8_t flag_update_lcd_rfm=0;
 char RX_BUF[16];
 //----------------- for tx module--------------------------
-//char LTX_BUF[16] = {'T','e','s','t'};
+
 
 
 const unsigned char LoRa_config[]={// 868MHz, SF12, 125kHz, 300bps, MaxPower, OcpOn, 9Byte info
 
-		REG_LR_OPMODE,					0x80, 		//Lora mode, HF, Sleep
+		REG_LR_OPMODE,					0x80, 		//Lora mode
 		REG_LR_FRFMSB, 					0x6c,		//Freq: 868 MHz = 0xd9; 433 MHz = 0x6c
 		REG_LR_FRFMID, 					0x40,		//Freq: 868 MHz = 0x00; 433 MHz = 0x40
 		REG_LR_FRFLSB, 					0x0,		//Freq: 868 MHz = 0x00;	433 MHz = 0x00
 		REG_LR_PACONFIG, 				RFLR_PACONFIG_PASELECT_PABOOST | RFLR_PACONFIG_PASELECT_MASK, //0b11111111 - Max power, however, use RFO for best result on HF
 		REG_LR_OCP,						0x1F,	//OCP-on, Current 130 mA
-		REG_LR_MODEMCONFIG1,			RFLR_MODEMCONFIG1_BW_125_KHZ  | RFLR_MODEMCONFIG1_CODINGRATE_4_5 | RFLR_MODEMCONFIG1_IMPLICITHEADER_OFF,		//125kHz,4/5 Coding Rate/ Explicit
-		REG_LR_MODEMCONFIG2, 			RFLR_MODEMCONFIG2_SF_7 | RFLR_MODEMCONFIG2_RXPAYLOADCRC_ON, //0xC2,			//
+		REG_LR_MODEMCONFIG1,			RFLR_MODEMCONFIG1_BW_10_41_KHZ | RFLR_MODEMCONFIG1_CODINGRATE_4_8 | RFLR_MODEMCONFIG1_IMPLICITHEADER_OFF,		//125kHz,4/5 Coding Rate/ Explicit
+		REG_LR_MODEMCONFIG2, 			RFLR_MODEMCONFIG2_SF_12 | RFLR_MODEMCONFIG2_RXPAYLOADCRC_ON, //0xC2,			//
 		REG_LR_PAYLOADLENGTH,			255,			//16 bytes // Standart -1
-		REG_LR_IRQFLAGSMASK, 			RFLR_IRQFLAGS_RXDONE_MASK | RFLR_IRQFLAGS_TXDONE | RFLR_IRQFLAGS_PAYLOADCRCERROR,					//Tx_Complete IRQ, RX_Complete IRQ
+		REG_LR_IRQFLAGSMASK, 			RFLR_IRQFLAGS_RXDONE_MASK | RFLR_IRQFLAGS_TXDONE | RFLR_IRQFLAGS_PAYLOADCRCERROR, //Tx_Complete IRQ, RX_Complete IRQ
 //		REG_LR_FIFOTXBASEADDR, 			0x00,					//Standart
 //		REG_LR_FIFORXBASEADDR, 			0x00,					//Standart
 
@@ -201,14 +201,13 @@ uint8_t SX1276_ReadRXBUF (char RX_BUF[], uint8_t* RX_BUF_SIZE)
 	if((flags & RFLR_IRQFLAGS_RXDONE) || (flags & RFLR_IRQFLAGS_VALIDHEADER))
 	{
 		rx_bytes= SX1276_ReadSingle(REG_LR_RXNBBYTES);
-		if(rx_bytes > 0){
+		if(rx_bytes > 0)
+		{
 			rssi=SX1276_ReadSingle(REG_LR_PKTRSSIVALUE);
 			snr= SX1276_ReadSingle(REG_LR_PKTSNRVALUE);
 			SX1276_ReadBurst( REG_LR_FIFO, RX_BUF, rx_bytes);
 			*RX_BUF_SIZE = rx_bytes;
 			isReceived = 1;
-			//		flags = SX1276_ReadSingle(REG_LR_IRQFLAGS);
-			//		SX1276_WriteSingle(REG_LR_IRQFLAGS,0xFF);
 		}
 	}
 	SX1276_WriteSingle(REG_LR_IRQFLAGS,0xFF);
